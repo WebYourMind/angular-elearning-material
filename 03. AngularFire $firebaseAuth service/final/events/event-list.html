@@ -1,0 +1,57 @@
+<div class="col-md-12 col-sm-12 col-lg-12">
+    <div>
+        <span>Search: </span> <input type="text" ng-model="search.$">
+        <span>Search by Event Name:</span>  <input type="text" ng-model="search.name">
+        <span>Search by Event Description:</span>  <input type="text" ng-model="search.description">
+        <span>Search by Event Category:</span>  <input type="text" ng-model="search.category.name">
+        <span>Exact Match?</span> <input type="checkbox" ng-model="strict">
+        <button ng-click="search = undefined"> Clear Filter </button>
+    </div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Event</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th>Contact Email</th>
+                <th>Location</th>
+                <th>Date</th>
+                <th>Price</th>
+                <th>Actions </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="event in managerCtl.eventList | filter: search: strict ">
+
+                <td>  {{event.id}}  </td>
+                <td   ng-show="!managerCtl.edit[event.id]" ng-switch on="event.isSpecial">
+                <span highlight eventname="{{event.name}}" ng-switch-when="true"></span>
+                 <span ng-switch-default> {{event.name}}</span>
+                </td>
+                <td   ng-show="!managerCtl.edit[event.id]">{{event.description}}</td>
+                <td   ng-show="!managerCtl.edit[event.id]">{{event.category.name}}</td>
+                <td   ng-show="!managerCtl.edit[event.id]">{{event.email}}</td>
+                <td   ng-show="!managerCtl.edit[event.id]">{{event.location}}</td>
+                <td   ng-show="!managerCtl.edit[event.id]">{{event.date | date: 'yyyy-MM-dd'}}</td>
+                <td   ng-show="!managerCtl.edit[event.id]">{{event.price |currency:"$"}}</td>
+                <td   ng-show="!managerCtl.edit[event.id]">
+                    <button class="btn btn-primary"  ng-click="managerCtl.edit[event.id] = !managerCtl.edit[event.id]"> Edit </button>
+                    <button class="btn btn-danger" ng-click="managerCtl.delete(event)"> Delete </button>
+                </td>
+
+                <td   ng-show="managerCtl.edit[event.id]"><input type="text" ng-model="event.name"></td>
+                <td   ng-show="managerCtl.edit[event.id]"><input type="text" ng-model="event.description"></td>
+                <td   ng-show="managerCtl.edit[event.id]"><input type="text" ng-model="event.category.name"></td>
+                <td   ng-show="managerCtl.edit[event.id]"><input type="text" ng-model="event.email"></td>
+                <td   ng-show="managerCtl.edit[event.id]"><input type="text" ng-model="event.location"></td>
+                <td   ng-show="managerCtl.edit[event.id]"><input type="text" ng-model="event.date"></td>
+                <td   ng-show="managerCtl.edit[event.id]"><input type="text" ng-model="event.price"></td>
+                <td  ng-show="managerCtl.edit[event.id]">
+                    <button class="btn btn-primary"  ng-click="managerCtl.update(event);managerCtl.edit[event.id] = !managerCtl.edit[event.id]"> Save </button>
+                    <button class="btn btn-warning"  ng-click="managerCtl.edit[event.id] = !managerCtl.edit[event.id]"> Undo </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

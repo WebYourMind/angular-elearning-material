@@ -1,0 +1,13 @@
+<div class="col-sm-3">
+<header> 
+    <h3>Events by {{filterBy}} {{category}}</h3>
+</header>
+<ul class="list-group" >
+<div ng-repeat="event in events |limitTo:3">
+#{{event.id}}
+  <li class="list-group-item"><b>Name:</b> {{event.name}}</li>
+  <li class="list-group-item"><b>Category: </b>{{event.category.name}}</li>
+  <li class="list-group-item"><b>Price: </b>{{event.price |currency:"$"}}</li>
+</div>
+</ul>
+</div>

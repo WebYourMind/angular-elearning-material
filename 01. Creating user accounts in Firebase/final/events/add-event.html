@@ -1,0 +1,114 @@
+<div class="row">
+    <div class="col-md-6 col-sm-8 col-lg-6">
+        <script type="text/ng-template" id="error-messages">
+                        <div ng-message='required'> This Field is required </div>
+                        <div ng-message='minlength'> Too short </div>
+                        <div ng-message='maxlength'> Too long </div>
+        </script>
+        <div class="panel panel-primary">
+            <div class="panel-heading"><h3>Add Event</h3></div>
+            <div class="panel-body">
+                <form class="form" role="form" id="addEventForm" ng-submit='addEventForm.$valid && eventCtl.submitForm(eventCtl.eventForm)' novalidate name="addEventForm">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                            <div class="form-group" ng-class="{'has-error': addEventForm.eventName.$touched && addEventForm.eventName.$invalid, 'has-success': addEventForm.eventName.$touched && addEventForm.eventName.$valid }">
+                                <label for="eventName" class="control-label">Name</label>
+                                <input type="text" ng-model='eventCtl.eventForm.name' required class="form-control"  name="eventName" placeholder="Event name" ng-minlength='3' ng-maxlength='50'>
+                                <div ng-messages="addEventForm.eventName.$dirty && addEventForm.eventName.$error">
+                                    <div ng-message='required'> The Event Name is required </div>
+                                    <div ng-message='minlength'>Please enter an Event Name at least 3 chars long</div>
+                                    <div ng-message='maxlength'>The Event Name entered cannot be longer than 50 chars</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                            <div class="form-group" ng-class="{'has-error': addEventForm.eventDescription.$touched && addEventForm.eventDescription.$invalid, 'has-success': addEventForm.eventDescription.$touched && addEventForm.eventDescription.$valid }">
+                                <label for="eventDescription" class="control-label">Description</label>
+                                <input type="textarea"  required ng-model='eventCtl.eventForm.description' class="form-control" name="eventDescription" placeholder="Event Description">
+                                <div ng-messages="addEventForm.eventDescription.$dirty && addEventForm.eventDescription.$error">
+                                    <div ng-messages-include="error-messages"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                            <div class="form-group" ng-class="{'has-error': addEventForm.eventDate.$touched && addEventForm.eventDate.$invalid, 'has-success': addEventForm.eventDate.$touched && addEventForm.eventDate.$valid }">
+                                <label for="eventDate" required class=" control-label">Date</label>
+                                <input type="text" required ng-pattern='/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/' ng-model='eventCtl.eventForm.date' class="form-control" name="eventDate" placeholder="yyyy-MM-dd">
+                                <div ng-messages="addEventForm.eventDate.$dirty && addEventForm.eventDate.$error">
+                                    <div ng-message="pattern">Please enter the date in the yyyy-mm-dd format</div>
+                                    <div ng-messages-include="error-messages"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                            <div class="form-group" ng-class="{'has-error': addEventForm.eventLocation.$touched && addEventForm.eventLocation.$invalid, 'has-success': addEventForm.eventLocation.$touched && addEventForm.eventLocation.$valid }">
+                                <label for="eventLocation" class=" control-label">Location</label>
+                                <input type="text" required ng-model='eventCtl.eventForm.location' class="form-control" name="eventLocation" placeholder="Event Location">
+                                <div ng-messages="addEventForm.eventLocation.$dirty && addEventForm.eventLocation.$error">
+                                    <div ng-messages-include="error-messages"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                            <div class="form-group" ng-class="{'has-error': addEventForm.eventCategory.$touched && addEventForm.eventCategory.$invalid, 'has-success': addEventForm.eventCategory.$touched && addEventForm.eventCategory.$valid }">
+                                <label for="eventCategory"  class="control-label">Category</label>
+                                <select class="form-control" required ng-model='eventCtl.selectedOption' ng-options="category.name for category in eventCtl.categories track by category.id" data-width="100%" name="eventCategory">
+                                </select>
+                                <div ng-messages="addEventForm.eventCategory.$dirty && addEventForm.eventCategory.$error">
+                                    <div ng-messages-include="error-messages"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                            <div class="form-group">
+                                <label for="eventEmailInfo" class=" control-label">Email</label>
+                                <input type="email" ng-model='eventCtl.eventForm.email'  class="form-control" name="eventEmailInfo" placeholder="Email Info">
+                                <p class="help-block">The contact email</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                            <div class="form-group"  ng-class="{'has-error': addEventForm.eventPrice.$touched && addEventForm.eventPrice.$invalid, 'has-success': addEventForm.eventPrice.$touched && addEventForm.eventPrice.$valid }">
+                                <label for="eventPrice" class="control-label">Price</label>
+                                <br>
+                                <input type="text" required ng-model='eventCtl.eventForm.price' class="form-control" name="eventPrice" placeholder="Event Price">
+                                <div ng-messages="addEventForm.eventPrice.$dirty && addEventForm.eventPrice.$error">
+                                    <div ng-messages-include="error-messages"></div>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                            <div class="form-group"  ng-class="{'has-error': addEventForm.eventSpecial.$touched && addEventForm.eventSpecial.$invalid, 'has-success': addEventForm.eventSpecial.$touched && addEventForm.eventSpecial.$valid }">
+                                <label for="eventPrice" class="control-label">Special</label>
+                                <br>
+                                <input type="checkbox"  ng-model='eventCtl.eventForm.isSpecial' name="eventSpecial" >
+
+                                <div ng-messages="addEventForm.eventSpecial.$dirty && addEventForm.eventSpecial.$error">
+                                    <div ng-messages-include="error-messages"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
+                            <div class="form-group">
+                                <button  type="submit" ng-disabled="addEventForm.$invalid" class="btn btn-primary">Submit</button>
+                                <button type="reset" class="btn btn-primary">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+</div>
+</div>
